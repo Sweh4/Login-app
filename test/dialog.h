@@ -35,7 +35,8 @@ private slots:
     //void menu();
     void registerSLOT();
     void loginSLOT();
-    void msgAccept();
+    void msgAcceptR();
+    void msgAcceptL();
 
     void otvorenprozor();
 
@@ -46,21 +47,22 @@ private:
     QDialog *registerD;
     QDialog *loginD;
 
-    QPushButton *loginBtn, *registerBtn,  *rejectBtn, *backBtnR, *acceptBtnR;
+    QPushButton *loginBtn, *registerBtn,  *rejectBtn, *backBtnR, *acceptBtnR, *backBtnL, *acceptBtnL;
 
     QLineEdit *nameR, *surnameR, *emailR, *passR, *passCR;
     QLabel *nameLabR, *surnameLabR, *emailLabR, *passLabR, *passCRLabR, *dateLabR;
     QDateEdit *dateDER;
 
     QLineEdit *emailL, *passL;
-    QGridLayout *layoutM, *layoutR;
+    QLabel *emailLabL, *passLabL;
+    QGridLayout *layoutM, *layoutR, *layoutL;
     QGroupBox *groupBoxM;
 
-    QMessageBox *msgR;
+    QMessageBox *msgR, *msgL;
 
 
 
-    QLabel *picM, *picR;
+    QLabel *picM, *picR, *picL;
 
 };
 

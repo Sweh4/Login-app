@@ -46,9 +46,30 @@ Dialog::Dialog(QWidget *parent) :
     picR = new QLabel(registerD);
     layoutR = new QGridLayout(registerD);
 
+//------------------------------------------------------------------------------------
+//                                          LOGIN
+//------------------------------------------------------------------------------------
+
+    emailL = new QLineEdit(loginD);
+    passL = new QLineEdit(loginD);
+
+    emailLabL = new QLabel(loginD);
+    passLabL = new QLabel(loginD);
+
+    backBtnL = new QPushButton(loginD);
+    acceptBtnL = new QPushButton(loginD);
+
+    msgL = new QMessageBox(loginD);
+
+    picL = new QLabel(loginD);
+    layoutL = new QGridLayout(loginD);
+
+
 //====================================================================================
 //                                          DIALOG (MENU)
 //====================================================================================
+
+    this->setMaximumSize(500,550);
 
     //Dodavanje buttona
     loginBtn->setText("Login");
@@ -87,12 +108,10 @@ Dialog::Dialog(QWidget *parent) :
 //                                          REGISTER
 //====================================================================================
 
-    //registerD->setStyleSheet("background-color: rgb(140,147,152); border= 0px;");
     QSpacerItem *itemLR = new QSpacerItem(30,30, QSizePolicy::Expanding, QSizePolicy::Fixed);
     QSpacerItem *itemRR = new QSpacerItem(30,30, QSizePolicy::Expanding, QSizePolicy::Fixed);
     QSpacerItem *itemDR = new QSpacerItem(30,30, QSizePolicy::Expanding, QSizePolicy::Fixed);
     QSpacerItem *itemMidR = new QSpacerItem(30,30, QSizePolicy::Expanding, QSizePolicy::Fixed);
-    QSpacerItem *itemDR2 = new QSpacerItem(30,30, QSizePolicy::Expanding, QSizePolicy::Fixed);
     QSpacerItem *itemMidR2 = new QSpacerItem(30,30, QSizePolicy::Expanding, QSizePolicy::Fixed);
     layoutR->addItem(itemRR,0,2,1,1);
     layoutR->addItem(itemLR,0,0,1,1);
@@ -162,6 +181,52 @@ Dialog::Dialog(QWidget *parent) :
     else{
         qDebug()<<"False";
     }
+
+    //====================================================================================
+    //                                          LOGIN
+    //====================================================================================
+
+        QSpacerItem *itemLL = new QSpacerItem(30,30, QSizePolicy::Expanding, QSizePolicy::Fixed);
+        QSpacerItem *itemRL = new QSpacerItem(30,30, QSizePolicy::Expanding, QSizePolicy::Fixed);
+        QSpacerItem *itemDL = new QSpacerItem(30,30, QSizePolicy::Expanding, QSizePolicy::Fixed);
+        QSpacerItem *itemMidL = new QSpacerItem(30,30, QSizePolicy::Expanding, QSizePolicy::Fixed);
+        QSpacerItem *itemMidL2 = new QSpacerItem(30,30, QSizePolicy::Expanding, QSizePolicy::Fixed);
+        layoutL->addItem(itemRL,0,2,1,1);
+        layoutL->addItem(itemLL,0,0,1,1);
+        layoutL->addItem(itemMidL,3,1,1,1);
+        layoutL->addItem(itemDL,8,1,1,1);
+
+        QPixmap mypixL (":/images/logo2.png");
+        mypixL = mypixL.scaled(200, 200, Qt::KeepAspectRatio);
+        picL->setPixmap(mypixL);
+
+        layoutL->addWidget(picL,0,1,1,1);
+        layoutL->addWidget(emailL,2,1,1,1);
+        layoutL->addWidget(passL,5,1,1,1);
+
+        passL->setEchoMode(QLineEdit::Password);
+
+        //Labels
+        emailLabL->setText("E-mail:");
+        emailLabL->setStyleSheet("font-family: georgia; color: white");
+        layoutL->addWidget(emailLabL,1,1,1,1);
+
+        passLabL->setText("Password:");
+        passLabL->setStyleSheet("font-family: georgia; color: white");
+        layoutL->addWidget(passLabL,4,1,1,1);
+
+        layoutL->addWidget(acceptBtnL,7,0,1,1);
+        layoutL->addItem(itemMidL2,7,1,1,1);
+        layoutL->addWidget(backBtnL,7,2,1,1);
+
+        loginD->setLayout(layoutL);
+
+        //Buttons
+        acceptBtnL->setText("Confirm");
+        QObject::connect(acceptBtnL, SIGNAL(clicked()),this, SLOT(msgAcceptL()));
+
+        backBtnL->setText("Back");
+        connect(backBtnL,QPushButton::clicked,this,&QDialog::open);
 }
 
 Dialog::~Dialog()
@@ -172,6 +237,7 @@ Dialog::~Dialog()
 void Dialog::loginSLOT(){
 
     loginD->setGeometry(710,240,500,550);
+    loginD->setMaximumSize(500,620);
     loginD->setWindowTitle("Login");
 }
 
@@ -182,13 +248,22 @@ void Dialog::registerSLOT(){
     registerD->setWindowTitle("Register");
 }
 
-void Dialog::msgAccept(){
+void Dialog::msgAcceptR(){
 
     msgR->information(registerD, "Register successful",
                       "<FONT COLOR='white'>You've been successfully registered !\n</FONT>",
                       QMessageBox::Escape | registerD->close());
     msgR->setFixedSize(500,200);
 }
+
+void Dialog::msgAcceptL(){
+
+    msgR->information(loginD, "Register successful",
+                      "<FONT COLOR='white'>You've been successfully logged !\n</FONT>",
+                      QMessageBox::Escape | loginD->close());
+    msgR->setFixedSize(500,200);
+}
+
 
 void Dialog::otvorenprozor () {
 
